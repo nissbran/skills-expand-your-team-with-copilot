@@ -498,6 +498,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Format the schedule using the new helper function
     const formattedSchedule = formatSchedule(details);
+    const shareText = `Check out "${name}" at Mergington High School Activities! ${formattedSchedule}`;
+    const pageUrl = window.location.href;
+
+    const shareLinks = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        pageUrl
+      )}`,
+      x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        shareText
+      )}&url=${encodeURIComponent(pageUrl)}`,
+      whatsapp: `https://wa.me/?text=${encodeURIComponent(
+        `${shareText} ${pageUrl}`
+      )}`,
+      email: `mailto:?subject=${encodeURIComponent(
+        `Mergington Activity: ${name}`
+      )}&body=${encodeURIComponent(`${shareText}\n\n${pageUrl}`)}`,
+    };
 
     // Create activity tag
     const tagHtml = `
@@ -528,6 +545,28 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="tooltip-text">Regular meetings at this time throughout the semester</span>
       </p>
       ${capacityIndicator}
+      <div class="share-buttons" aria-label="Share activity">
+        <button class="share-button facebook-share" data-share-url="${
+          shareLinks.facebook
+        }" type="button">
+          Facebook
+        </button>
+        <button class="share-button x-share" data-share-url="${
+          shareLinks.x
+        }" type="button">
+          X
+        </button>
+        <button class="share-button whatsapp-share" data-share-url="${
+          shareLinks.whatsapp
+        }" type="button">
+          WhatsApp
+        </button>
+        <button class="share-button email-share" data-share-url="${
+          shareLinks.email
+        }" type="button">
+          Email
+        </button>
+      </div>
       <div class="participants-list">
         <h5>Current Participants:</h5>
         <ul>
@@ -586,6 +625,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     }
+
+    const shareButtons = activityCard.querySelectorAll(".share-button");
+    shareButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        window.open(button.dataset.shareUrl, "_blank", "noopener,noreferrer");
+      });
+    });
 
     activitiesList.appendChild(activityCard);
   }
