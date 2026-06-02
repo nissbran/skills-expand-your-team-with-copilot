@@ -629,8 +629,20 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        const parsedUrl = new URL(shareUrl);
+        let parsedUrl;
+        try {
+          parsedUrl = new URL(shareUrl);
+        } catch (error) {
+          console.error("Invalid share URL", error);
+          return;
+        }
+
         if (!["https:", "mailto:"].includes(parsedUrl.protocol)) {
+          return;
+        }
+
+        if (parsedUrl.protocol === "mailto:") {
+          window.location.href = shareUrl;
           return;
         }
 
