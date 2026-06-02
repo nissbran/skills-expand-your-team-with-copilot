@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login-form");
   const closeLoginModal = document.querySelector(".close-login-modal");
   const loginMessage = document.getElementById("login-message");
-  const schoolHeading = document.querySelector("header h1");
 
   // Activity categories with corresponding colors
   const activityTypes = {
@@ -34,7 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
     community: { label: "Community", color: "#fff3e0", textColor: "#e65100" },
     technology: { label: "Technology", color: "#e8eaf6", textColor: "#3949ab" },
   };
-  const schoolName = (schoolHeading?.textContent || "School").trim();
+  function getSchoolName() {
+    const schoolHeading = document.querySelector("header h1");
+    return (schoolHeading?.textContent || "School").trim();
+  }
 
   // State for activities and filters
   let allActivities = {};
@@ -500,6 +502,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Format the schedule using the new helper function
     const formattedSchedule = formatSchedule(details);
+    const schoolName = getSchoolName();
     const shareText = `Check out "${name}" at ${schoolName} Activities! ${formattedSchedule}`;
     const pageUrl = `${window.location.origin}${window.location.pathname}`;
 
@@ -507,7 +510,7 @@ document.addEventListener("DOMContentLoaded", () => {
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
         pageUrl
       )}`,
-      x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      x: `https://x.com/intent/tweet?text=${encodeURIComponent(
         shareText
       )}&url=${encodeURIComponent(pageUrl)}`,
       whatsapp: `https://wa.me/?text=${encodeURIComponent(
