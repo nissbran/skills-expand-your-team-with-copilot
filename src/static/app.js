@@ -513,7 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `${shareText} ${pageUrl}`
       )}`,
       email: `mailto:?subject=${encodeURIComponent(
-        `Mergington Activity: ${name}`
+        `${SCHOOL_NAME} Activity: ${name}`
       )}&body=${encodeURIComponent(`${shareText}\n\n${pageUrl}`)}`,
     };
 
