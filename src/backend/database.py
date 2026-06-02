@@ -166,13 +166,13 @@ initial_activities = {
     },
     "Manga Maniacs": {
         "description": "Dive into the epic world of Japanese Manga — where heroes rise, villains scheme, and every page turn reveals breathtaking art and unforgettable stories. Whether you're into action-packed shonen, heartfelt shojo, or mind-bending seinen, there's a manga waiting to blow your mind!",
-        "schedule": "Tuesdays, 7:00 PM",
+        "schedule": "Tuesdays, 5:00 PM",
         "schedule_details": {
             "days": ["Tuesday"],
-            "start_time": "19:00",
-            "end_time": "20:00"
+            "start_time": "17:00",
+            "end_time": "18:00"
         },
-        "max_participants": 15,
+        "max_participants": 25,
         "participants": []
     }
 }
@@ -197,4 +197,3 @@ initial_teachers = [
         "role": "admin"
     }
 ]
-
