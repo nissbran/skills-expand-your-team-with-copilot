@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     community: { label: "Community", color: "#fff3e0", textColor: "#e65100" },
     technology: { label: "Technology", color: "#e8eaf6", textColor: "#3949ab" },
   };
+  const SCHOOL_NAME = "Mergington High School";
 
   // State for activities and filters
   let allActivities = {};
@@ -498,7 +499,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Format the schedule using the new helper function
     const formattedSchedule = formatSchedule(details);
-    const shareText = `Check out "${name}" at Mergington High School Activities! ${formattedSchedule}`;
+    const shareText = `Check out "${name}" at ${SCHOOL_NAME} Activities! ${formattedSchedule}`;
     const pageUrl = window.location.href;
 
     const shareLinks = {
@@ -546,24 +547,16 @@ document.addEventListener("DOMContentLoaded", () => {
       </p>
       ${capacityIndicator}
       <div class="share-buttons" aria-label="Share activity">
-        <button class="share-button facebook-share" data-share-url="${
-          shareLinks.facebook
-        }" type="button">
+        <button class="share-button facebook-share" data-share-platform="facebook" type="button">
           Facebook
         </button>
-        <button class="share-button x-share" data-share-url="${
-          shareLinks.x
-        }" type="button">
+        <button class="share-button x-share" data-share-platform="x" type="button">
           X
         </button>
-        <button class="share-button whatsapp-share" data-share-url="${
-          shareLinks.whatsapp
-        }" type="button">
+        <button class="share-button whatsapp-share" data-share-platform="whatsapp" type="button">
           WhatsApp
         </button>
-        <button class="share-button email-share" data-share-url="${
-          shareLinks.email
-        }" type="button">
+        <button class="share-button email-share" data-share-platform="email" type="button">
           Email
         </button>
       </div>
@@ -629,7 +622,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const shareButtons = activityCard.querySelectorAll(".share-button");
     shareButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        window.open(button.dataset.shareUrl, "_blank", "noopener,noreferrer");
+        const platform = button.dataset.sharePlatform;
+        const shareUrl = shareLinks[platform];
+
+        if (!shareUrl) {
+          return;
+        }
+
+        const parsedUrl = new URL(shareUrl);
+        if (!["https:", "mailto:"].includes(parsedUrl.protocol)) {
+          return;
+        }
+
+        window.open(shareUrl, "_blank", "noopener,noreferrer");
       });
     });
 
