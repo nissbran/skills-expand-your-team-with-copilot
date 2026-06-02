@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login-form");
   const closeLoginModal = document.querySelector(".close-login-modal");
   const loginMessage = document.getElementById("login-message");
+  const schoolHeading = document.querySelector("header h1");
 
   // Activity categories with corresponding colors
   const activityTypes = {
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     community: { label: "Community", color: "#fff3e0", textColor: "#e65100" },
     technology: { label: "Technology", color: "#e8eaf6", textColor: "#3949ab" },
   };
-  const SCHOOL_NAME = "Mergington High School";
+  const SCHOOL_NAME = (schoolHeading?.textContent || "School").trim();
 
   // State for activities and filters
   let allActivities = {};
@@ -500,7 +501,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Format the schedule using the new helper function
     const formattedSchedule = formatSchedule(details);
     const shareText = `Check out "${name}" at ${SCHOOL_NAME} Activities! ${formattedSchedule}`;
-    const pageUrl = window.location.href;
+    const pageUrl = `${window.location.origin}${window.location.pathname}`;
 
     const shareLinks = {
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
