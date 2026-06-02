@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     community: { label: "Community", color: "#fff3e0", textColor: "#e65100" },
     technology: { label: "Technology", color: "#e8eaf6", textColor: "#3949ab" },
   };
-  const SCHOOL_NAME = (schoolHeading?.textContent || "School").trim();
+  const schoolName = (schoolHeading?.textContent || "School").trim();
 
   // State for activities and filters
   let allActivities = {};
@@ -500,7 +500,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Format the schedule using the new helper function
     const formattedSchedule = formatSchedule(details);
-    const shareText = `Check out "${name}" at ${SCHOOL_NAME} Activities! ${formattedSchedule}`;
+    const shareText = `Check out "${name}" at ${schoolName} Activities! ${formattedSchedule}`;
     const pageUrl = `${window.location.origin}${window.location.pathname}`;
 
     const shareLinks = {
@@ -514,7 +514,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `${shareText} ${pageUrl}`
       )}`,
       email: `mailto:?subject=${encodeURIComponent(
-        `${SCHOOL_NAME} Activity: ${name}`
+        `${schoolName} Activity: ${name}`
       )}&body=${encodeURIComponent(`${shareText}\n\n${pageUrl}`)}`,
     };
 
@@ -634,7 +634,12 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
           parsedUrl = new URL(shareUrl);
         } catch (error) {
-          console.error("Invalid share URL", error);
+          console.error(
+            "Invalid share URL for platform:",
+            platform,
+            shareUrl,
+            error
+          );
           return;
         }
 
