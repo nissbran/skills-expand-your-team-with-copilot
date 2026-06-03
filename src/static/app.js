@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const THEME_KEY = "theme";
+
   // DOM elements
   const activitiesList = document.getElementById("activities-list");
   const messageDiv = document.getElementById("message");
@@ -25,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login-form");
   const closeLoginModal = document.querySelector(".close-login-modal");
   const loginMessage = document.getElementById("login-message");
-  const themeStorageKey = "theme";
 
   // Activity categories with corresponding colors
   const activityTypes = {
@@ -171,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function applyTheme(theme) {
     const isDark = theme === "dark";
     document.body.classList.toggle("dark-mode", isDark);
-    themeToggleButton.textContent = isDark ? "☀️ Light" : "🌙 Dark";
+    themeToggleButton.textContent = isDark ? "Light mode" : "Dark mode";
     themeToggleButton.setAttribute(
       "aria-label",
       isDark ? "Switch to light mode" : "Switch to dark mode"
@@ -179,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function initializeTheme() {
-    const savedTheme = localStorage.getItem(themeStorageKey);
+    const savedTheme = localStorage.getItem(THEME_KEY);
     applyTheme(savedTheme === "dark" ? "dark" : "light");
   }
 
@@ -187,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const nextTheme = document.body.classList.contains("dark-mode")
       ? "light"
       : "dark";
-    localStorage.setItem(themeStorageKey, nextTheme);
+    localStorage.setItem(THEME_KEY, nextTheme);
     applyTheme(nextTheme);
   }
 
