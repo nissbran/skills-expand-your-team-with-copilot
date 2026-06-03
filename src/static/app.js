@@ -468,19 +468,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Apply difficulty filter
-      if (currentDifficulty === "All" && details.difficulty_level) {
-        return;
-      }
-
-      if (
-        currentDifficulty &&
-        currentDifficulty !== "All" &&
-        details.difficulty_level !== currentDifficulty
-      ) {
-        return;
-      }
-
       // Activity passed all filters, add to filtered list
       filteredActivities[name] = details;
     });

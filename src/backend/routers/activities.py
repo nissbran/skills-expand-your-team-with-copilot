@@ -13,6 +13,8 @@ router = APIRouter(
     tags=["activities"]
 )
 
+ALLOWED_DIFFICULTY_LEVELS = {"Beginner", "Intermediate", "Advanced", "not_specified"}
+
 @router.get("", response_model=Dict[str, Any])
 @router.get("/", response_model=Dict[str, Any])
 def get_activities(
@@ -28,7 +30,8 @@ def get_activities(
     - start_time: Filter activities starting at or after this time (24-hour format, e.g., '14:30')
     - end_time: Filter activities ending at or before this time (24-hour format, e.g., '17:00')
     - difficulty_level: Filter by difficulty ('Beginner', 'Intermediate', 'Advanced').
-      Use 'All' to show only activities without a difficulty level set.
+      Use 'not_specified' to show only activities without a difficulty level set.
+      Leave empty to return activities across all difficulty levels.
     """
     # Build the query based on provided filters
     query = {}
@@ -43,7 +46,10 @@ def get_activities(
         query["schedule_details.end_time"] = {"$lte": end_time}
 
     if difficulty_level:
-        if difficulty_level == "All":
+        if difficulty_level not in ALLOWED_DIFFICULTY_LEVELS:
+            raise HTTPException(status_code=400, detail="Invalid difficulty level")
+
+        if difficulty_level == "not_specified":
             query["difficulty_level"] = {"$exists": False}
         else:
             query["difficulty_level"] = difficulty_level
